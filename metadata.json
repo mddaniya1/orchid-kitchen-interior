@@ -1,0 +1,6 @@
+{
+  "name": "Orchid Kitchen and Interior",
+  "description": "A bespoke modular kitchen and interior design studio in Karachi shaping modern homes through smart layouts, fine materials, and precision craftsmanship.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

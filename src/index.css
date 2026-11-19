@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+/* Reference Casa Interior Font System: Almarai (Display) & Apfel Grotezk (Body) */
+@font-face {
+  font-family: "Almarai";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/almarai/v19/tsstApxBaigK_hnnQ12Fow.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Almarai";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/almarai/v19/tssoApxBaigK_hnnS-agtn-Wow.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Apfel Grotezk";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://framerusercontent.com/assets/KwK0fH9Qx1gAi2nY6HV637MnF0.woff2") format("woff2");
+}
+
+/* Casa Interior Exact Design Tokens */
+:root {
+  --color-canvas: #000000;
+  --color-surface: #101010;
+  --color-surface-warm: #120d09;
+  --color-surface-elevated: #1a130e;
+  --color-burgundy: #450204;
+  --color-cream: #e1e0cc;
+  --color-cream-80: rgba(225, 224, 204, 0.8);
+  --color-cream-55: rgba(225, 224, 204, 0.55);
+  --color-cream-30: rgba(225, 224, 204, 0.3);
+  --color-cream-20: rgba(225, 224, 204, 0.2);
+  --color-cream-12: rgba(225, 224, 204, 0.12);
+  --color-sand: #b7a586;
+
+  --font-display: "Almarai", system-ui, -apple-system, sans-serif;
+  --font-body: "Apfel Grotezk", "Almarai", system-ui, -apple-system, sans-serif;
+
+  --ease-casa: cubic-bezier(0.22, 1, 0.36, 1);
+  --radius-card: 32px;
+  --radius-footer: 64px;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-canvas);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-canvas);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Casa Interior Typography Presets matching exact reference scales */
+.casa-wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 104px;
+  line-height: 0.92em;
+  letter-spacing: -0.04em;
+  color: var(--color-cream);
+}
+
+.casa-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 58px;
+  line-height: 1.12em;
+  letter-spacing: -0.03em;
+  color: var(--color-cream);
+  text-wrap: balance;
+}
+
+.casa-h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1.2em;
+  letter-spacing: -0.03em;
+  color: var(--color-cream);
+}
+
+.casa-body-lg {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.3em;
+  letter-spacing: 0;
+}
+
+.casa-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.35em;
+  letter-spacing: 0;
+}
+
+.casa-label {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.3em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1199px) {
+  .casa-wordmark {
+    font-size: 83px;
+  }
+  .casa-h2 {
+    font-size: 44px;
+  }
+  .casa-h3 {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 809px) {
+  .casa-wordmark {
+    font-size: 44px;
+  }
+  .casa-h2 {
+    font-size: 34px;
+  }
+  .casa-h3 {
+    font-size: 22px;
+  }
+}
+
+/* Subtle architectural grain overlay matching Framer Noise layers */
+.casa-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Philosophy row hover effects matching reference CSS */
+.philosophy-row .philosophy-hover-image {
+  opacity: 0;
+  transform: scale(0.92) rotate(-2deg);
+  transition: opacity 0.6s var(--ease-casa), transform 0.8s var(--ease-casa);
+}
+
+.philosophy-row .philosophy-title {
+  transition: transform 0.6s var(--ease-casa);
+}
+
+@media (hover: hover) and (min-width: 810px) {
+  .philosophy-row:hover .philosophy-hover-image {
+    opacity: 1;
+    transform: none;
+  }
+  .philosophy-row:hover .philosophy-title {
+    transform: translateX(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
