@@ -77,15 +77,17 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
   return (
     <header
       aria-label="Main navigation"
-      className="pointer-events-none absolute top-0 left-1/2 z-40 w-full -translate-x-1/2 min-[810px]:px-[56px] min-[1440px]:max-w-[1440px]"
+      className="pointer-events-none absolute top-0 left-0 z-40 w-full min-[1000px]:left-1/2 min-[1000px]:w-[828px] min-[1000px]:-translate-x-1/2 min-[1200px]:w-[1104px] min-[1440px]:w-[1280px]"
     >
       <nav
         aria-label="Main navigation"
         className={`pointer-events-auto flex w-full flex-row items-start justify-between transition-all duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          menuOpen ? 'max-[809px]:px-0' : 'max-[809px]:pr-[12px] max-[809px]:pl-[20px]'
+          menuOpen
+            ? 'p-0'
+            : 'pl-[20px] pr-[12px] min-[810px]:px-[36px] min-[1000px]:p-0'
         }`}
       >
-        {/* Left Brand Notch (.framer-e8r2tf) — collapses smoothly when drawer opens */}
+        {/* Left Brand Notch (.framer-e8r2tf): #000000, rounded-b-[32px], h-[44px], px-[24px] */}
         <div
           className={`flex h-[44px] items-center justify-start overflow-hidden rounded-b-[32px] bg-[#000000] transition-all duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
             menuOpen ? 'w-0 px-0 opacity-0' : 'w-auto px-[24px] opacity-100'
@@ -105,14 +107,14 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
           </a>
         </div>
 
-        {/* Right Menu Toggle Notch & Expanding Overlay Panel (.framer-7sbdt5) */}
+        {/* Right Menu Notch & Expanding Panel (.framer-7sbdt5): w-[150px] px-[24px] closed -> w-full px-[28px] open */}
         <div
           ref={panelRef}
           className={`flex flex-col items-center justify-start overflow-hidden rounded-b-[32px] bg-[#000000] transition-all duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
             menuOpen ? 'w-full px-[28px]' : 'w-[150px] px-[24px]'
           }`}
         >
-          {/* Toggle Row (.framer-1au09mz, height: 44px) */}
+          {/* Toggle Row (.framer-1au09mz): exact h-[44px], justify-between */}
           <button
             type="button"
             onClick={() => setMenuOpen((prev) => !prev)}
@@ -138,7 +140,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
             </span>
           </button>
 
-          {/* Expanding Panel (.framer-1p0wzl0) */}
+          {/* Expanding Drawer (.framer-1p0wzl0): height 0 -> auto, opacity 0 -> 1 */}
           <AnimatePresence initial={false}>
             {menuOpen && (
               <motion.div
@@ -149,7 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                 transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className="flex w-full flex-col items-start overflow-hidden"
               >
-                {/* Links Stack (.framer-10sbsi3: pt 20px, pb 28px, gap 6px) */}
+                {/* Links Stack (.framer-10sbsi3): exact pt-[20px] pb-[28px] gap-[6px] */}
                 <div className="flex w-full flex-col items-start gap-[6px] pt-[20px] pb-[28px]">
                   {orderedLinks.map((item) => {
                     const active = isActive(item.target);
@@ -158,7 +160,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                         key={item.label}
                         type="button"
                         onClick={() => handleLinkClick(item.target)}
-                        className={`flex w-full cursor-pointer items-center justify-between py-0.5 text-left font-display text-[22px] font-normal leading-[1.2em] tracking-[-0.03em] transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] min-[810px]:text-[26px] min-[1200px]:text-[32px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e1e0cc] rounded-sm ${
+                        className={`flex w-full cursor-pointer items-center justify-between text-left font-display text-[22px] font-normal leading-[1.2em] tracking-[-0.03em] transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] min-[810px]:text-[26px] min-[1200px]:text-[32px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e1e0cc] rounded-sm ${
                           active
                             ? 'text-[#e1e0cc]'
                             : 'text-[#e1e0cc] hover:text-[#e1e0cc]/55'
@@ -176,8 +178,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                   })}
                 </div>
 
-                {/* Drawer Footer (.framer-y88psu: border-top 1px rgba(225,224,204,0.12), pt 16px, pb 24px) */}
-                <div className="flex w-full flex-row items-center justify-between gap-4 border-t border-[#e1e0cc]/12 pt-[16px] pb-[24px] text-[12px] leading-[1.3em] text-[#e1e0cc]/80 min-[810px]:text-[13px]">
+                {/* Drawer Footer (.framer-y88psu): border-top 1px rgba(225,224,204,0.12), pt-[16px] pb-[24px], 12px Apfel Grotezk */}
+                <div className="flex w-full flex-row items-center justify-between gap-4 border-t border-[#e1e0cc]/12 pt-[16px] pb-[24px] font-body text-[12px] font-normal leading-[1.3em] tracking-[0em] text-[#e1e0cc]/80">
                   <a
                     href={SITE_CONFIG.contact.emailHref}
                     className="truncate text-[#e1e0cc]/80 transition-colors duration-200 hover:text-[#e1e0cc]"
@@ -188,7 +190,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentRoute, onNavigate }) => {
                     href={buildWhatsAppUrl()}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="shrink-0 whitespace-nowrap text-[#e1e0cc] transition-colors duration-200 hover:text-[#b7a586]"
+                    className="shrink-0 whitespace-nowrap text-[#e1e0cc]/80 transition-colors duration-200 hover:text-[#e1e0cc]"
                   >
                     WhatsApp ↗
                   </a>
