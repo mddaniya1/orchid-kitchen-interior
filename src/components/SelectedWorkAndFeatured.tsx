@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { CornerUpRight } from 'lucide-react';
 import { PROJECTS, ProjectItem, SITE_CONFIG } from '../data/siteData';
 import { ArrowCircleButton, CasaImage, SectionLabel } from './ui/CasaPrimitives';
@@ -136,18 +136,26 @@ export const SelectedWorkSection: React.FC<SelectedWorkProps> = ({ onSelectProje
 export const FeaturedProjectSection: React.FC<{ onDiscover: (slug: string) => void }> = ({
   onDiscover,
 }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start 95%', 'center 60%'],
+  });
+  const cardScale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
+  const headingWords = SITE_CONFIG.featuredProject.heading.split(' ');
+
   return (
     <section
       id="featured"
-      className="flex w-full flex-col items-center px-6 py-8 max-[809px]:px-3 max-[809px]:py-4"
+      className="flex w-full flex-col items-center overflow-hidden bg-[#000000] px-[24px] py-[32px] max-[809px]:px-[12px] max-[809px]:py-[16px]"
     >
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="group relative flex min-h-[620px] w-full max-w-[1280px] flex-col items-center justify-center overflow-hidden rounded-[32px] bg-[#101010] p-12 text-center max-[1199px]:min-h-[540px] max-[1199px]:p-9 max-[809px]:min-h-[460px] max-[809px]:rounded-[24px] max-[809px]:p-6"
+        ref={containerRef}
+        style={{ scale: cardScale }}
+        onClick={() => onDiscover(SITE_CONFIG.featuredProject.projectSlug)}
+        className="group relative flex h-[75vh] min-h-[620px] w-full cursor-pointer flex-col items-center justify-center overflow-hidden rounded-[32px] bg-[#101010] px-6 text-center max-[809px]:h-[590px] max-[809px]:min-h-[590px] max-[809px]:cursor-default"
       >
+        {/* Background Photo + Scrim */}
         <div className="absolute inset-0 z-0">
           <CasaImage
             src={SITE_CONFIG.featuredProject.image}
@@ -155,30 +163,64 @@ export const FeaturedProjectSection: React.FC<{ onDiscover: (slug: string) => vo
             className="h-full w-full"
             imgClassName="transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
           />
-          {/* Exact Casa Interior dark scrim (--token-dSvNeJKTA: rgba(0,0,0,0.7)) */}
-          <div className="absolute inset-0 bg-[#000000]/65" />
+          <div className="absolute inset-0 bg-[#000000]/55" />
         </div>
 
-        {/* Centered Editorial Overlay matching Casa Interior transform:translate(-50%,-50%) */}
-        <div className="relative z-10 flex max-w-[700px] flex-col items-center gap-6">
-          <SectionLabel className="text-center text-[#e1e0cc]/75">
+        {/* Exact Centered Content Block (.framer-1gpo42k: gap 28px, max-w 912px) */}
+        <div className="relative z-10 flex w-full max-w-[912px] flex-col items-center justify-center gap-[28px]">
+          <p className="text-center font-display text-[14px] font-bold leading-[1.3em] tracking-[-0.02em] text-[#b3b3b3]/80">
             {SITE_CONFIG.featuredProject.label}
-          </SectionLabel>
-          <h2 className="casa-h2 text-center text-[#e1e0cc]">
-            {SITE_CONFIG.featuredProject.heading}
-          </h2>
-          <p className="casa-body-lg max-w-[44ch] text-center text-[#e1e0cc]/85">
-            {SITE_CONFIG.featuredProject.description}
           </p>
-          <div className="pt-2">
-            <ArrowCircleButton
-              label={SITE_CONFIG.featuredProject.ctaLabel}
-              onClick={() => onDiscover(SITE_CONFIG.featuredProject.projectSlug)}
-              variant="light"
-            />
+
+          {/* Exact .framer-styles-preset-1cyzemt: 104px desktop, 83px tablet, 44px mobile, -0.04em, 0.92em */}
+          <h2 className="w-full max-w-[760px] text-center font-display text-[44px] font-normal leading-[0.92em] tracking-[-0.04em] text-[#e1e0cc] text-balance min-[810px]:text-[83px] min-[1200px]:text-[104px]">
+            {headingWords.map((word, idx) => (
+              <motion.span
+                key={`${word}-${idx}`}
+                initial={{ opacity: 0.001, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{
+                  duration: 0.75,
+                  delay: idx * 0.06,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="mr-[0.22em] inline-block last:mr-0"
+              >
+                {word}
+              </motion.span>
+            ))}
+          </h2>
+
+          {/* Exact .framer-1mt2tnw Row: gap 40px, 340px 18px description + ArrowCircleButton */}
+          <div className="flex w-full flex-col items-center justify-center gap-[40px]">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.75, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="w-[340px] max-w-full text-center font-body text-[18px] font-normal leading-[1.2em] tracking-[0em] text-[#e1e0cc] text-balance"
+            >
+              {SITE_CONFIG.featuredProject.description}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0.001, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={{ duration: 0.75, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ArrowCircleButton
+                label={SITE_CONFIG.featuredProject.ctaLabel}
+                onClick={() => onDiscover(SITE_CONFIG.featuredProject.projectSlug)}
+                variant="light"
+              />
+            </motion.div>
           </div>
         </div>
       </motion.div>
     </section>
   );
 };
+
