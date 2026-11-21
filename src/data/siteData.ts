@@ -49,7 +49,7 @@ export interface PhilosophyItem {
   image: string;
 }
 
-export const WHATSAPP_NUMBER_DIGITS = '923311371992';
+export const WHATSAPP_NUMBER_DIGITS = '923488671992';
 export const WHATSAPP_DEFAULT_MESSAGE =
   'Hello Orchid Kitchen and Interior, I am interested in your modular kitchen and interior design services. I would like to discuss my project.';
 
@@ -68,10 +68,8 @@ export const SITE_CONFIG = {
     summary: 'Rated 5.0 stars on Google by homeowners across Karachi.',
   },
   contact: {
-    primaryPhone: '+92 331 1371992',
-    primaryPhoneHref: 'tel:+923311371992',
-    secondaryPhone: '+92 348 8671992',
-    secondaryPhoneHref: 'tel:+923488671992',
+    primaryPhone: '+92 348 8671992',
+    primaryPhoneHref: 'tel:+923488671992',
     email: 'orchidkitchenandinterior@gmail.com',
     emailHref: 'mailto:orchidkitchenandinterior@gmail.com',
     address:

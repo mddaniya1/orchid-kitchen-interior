@@ -346,12 +346,6 @@ export const Footer: React.FC<FooterProps> = ({
                 <a href={SITE_CONFIG.contact.primaryPhoneHref} className="hover:underline">
                   {SITE_CONFIG.contact.primaryPhone}
                 </a>
-                <span aria-hidden="true" className="text-[#e1e0cc]/35">
-                  ·
-                </span>
-                <a href={SITE_CONFIG.contact.secondaryPhoneHref} className="hover:underline">
-                  {SITE_CONFIG.contact.secondaryPhone}
-                </a>
               </div>
             </div>
           </div>

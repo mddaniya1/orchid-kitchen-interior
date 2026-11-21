@@ -618,9 +618,6 @@ export const ContactPage: React.FC<{
                   <a href={SITE_CONFIG.contact.primaryPhoneHref} className="hover:underline">
                     {SITE_CONFIG.contact.primaryPhone}
                   </a>
-                  <a href={SITE_CONFIG.contact.secondaryPhoneHref} className="hover:underline">
-                    {SITE_CONFIG.contact.secondaryPhone}
-                  </a>
                 </div>
               </div>
               <div className="flex items-start gap-3">
