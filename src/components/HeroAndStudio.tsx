@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { SITE_CONFIG } from '../data/siteData';
-import { ArrowCircleButton, CasaImage, SectionLabel } from './ui/CasaPrimitives';
+import { ArrowCircleButton, CasaImage } from './ui/CasaPrimitives';
 
 interface HeroAndStudioProps {
   onExploreWork: () => void;
@@ -91,7 +91,7 @@ interface RevealWordProps {
 const RevealWord: React.FC<RevealWordProps> = ({ word, index, total, progress }) => {
   const start = index / total;
   const end = Math.min(1, start + 1.8 / total);
-  const opacity = useTransform(progress, [start, end], [0.28, 1]);
+  const opacity = useTransform(progress, [start, end], [0.2, 1]);
 
   return (
     <motion.span style={{ opacity }} className="mr-[0.26em] inline-block">
@@ -112,7 +112,7 @@ export const StudioSection: React.FC = () => {
   return (
     <section
       id="studio"
-      className="flex w-full flex-col items-center justify-start px-6 py-[128px] max-[1199px]:py-[96px] max-[809px]:px-3 max-[809px]:py-[64px]"
+      className="flex w-full flex-col items-center justify-start px-6 py-[128px] max-[999px]:py-[96px] max-[809px]:px-3 max-[809px]:py-[64px]"
     >
       <motion.div
         ref={cardRef}
@@ -120,19 +120,21 @@ export const StudioSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="relative flex w-full max-w-[1152px] flex-col items-center justify-start gap-10 overflow-hidden rounded-[32px] bg-[#450204] px-16 py-24 text-center max-[1199px]:px-10 max-[1199px]:py-20 max-[809px]:gap-7 max-[809px]:rounded-[24px] max-[809px]:px-6 max-[809px]:py-14"
+        className="relative flex w-full max-w-[1152px] flex-col items-center justify-start gap-10 overflow-hidden rounded-[32px] bg-[#450204] px-16 py-24 text-center max-[999px]:px-10 max-[999px]:py-20 max-[809px]:gap-[28px] max-[809px]:rounded-[32px] max-[809px]:px-6 max-[809px]:py-14"
       >
         <div className="casa-noise pointer-events-none absolute inset-0 opacity-20" />
 
-        <SectionLabel className="relative z-10 text-center text-[#e1e0cc]/75">
+        <p className="relative z-10 text-center font-display text-[14px] font-bold leading-[1.3em] tracking-[-0.02em] text-[#b3b3b3]/80">
           {SITE_CONFIG.studio.label}
-        </SectionLabel>
+        </p>
 
-        <h2 className="casa-h2 relative z-10 max-w-[24ch] text-center text-[#e1e0cc]">
-          {SITE_CONFIG.studio.heading}
-        </h2>
+        <div className="relative z-10 flex w-full max-w-[900px] flex-col items-center">
+          <h2 className="casa-h2 w-full max-w-[850px] text-center text-[#e1e0cc]">
+            {SITE_CONFIG.studio.heading}
+          </h2>
+        </div>
 
-        <p className="casa-h3 relative z-10 max-w-[38ch] text-center font-normal text-[#e1e0cc]">
+        <p className="relative z-10 w-full max-w-[640px] text-center font-body text-[15px] font-normal leading-[1.6em] tracking-[0em] text-[#e1e0cc] min-[810px]:text-[19px] min-[1000px]:text-[22px]">
           {descriptionWords.map((word, idx) => (
             <RevealWord
               key={`${word}-${idx}`}
